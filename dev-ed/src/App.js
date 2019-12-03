@@ -4,7 +4,7 @@ import { increment, decrement } from './actions';
 
 function App() {
   const counter = useSelector(state => state.counter);
-  const isLoggedIn = useSelector(state => state.loggedIn);
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
   const dispatch = useDispatch();
   return (
     <div className="App">
