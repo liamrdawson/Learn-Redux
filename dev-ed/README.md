@@ -10,6 +10,7 @@ Before we start, lets look at how we want our initial state to look. We want to 
 }
 ```
 
+
 ## Action
 **Actions** are plain JavaScript objects which send data from the application to the store (global state). Actions usually have a payload of data and always have a type. 
 
@@ -29,21 +30,47 @@ Here are actions which represent adding or subtracting from a counter. When an a
 
 <!-- To initiate our dispatch we need to pass the result to Redux' `dispatch()` function. In `react-redux` we can use the `useDispatch()` hook. -->
 
+
 ## Reducer
 Now we need to define our **reducers**, which will specify how our state updates when we dispatch our actions. **The reducer is a pure function that takes the previous state and an action, and returns the next state**.
 ```javascript
     const reducer = (previousState, action) => newState;
 ```
-We start building a reducer by first specfying our initial state. As we want to build a recucer to take care of our counter state, this will look like...
+We start building a reducer by first specfying our initial state. As we want to build a recucer to take care of our counter state, this will look like below. We're using a switch case to return a different value
 ```javascript
     const counterReducer = (state = 0, action) => {
-    switch (action.type) {
-        case 'INCREMENT':
-        return state + action.payload;
-        case 'DECREMENT':
-        return state - action.payload;
-        default:
-        return state;
-    }
+        switch (action.type) {
+            case 'INCREMENT':
+            return state + action.payload;
+            case 'DECREMENT':
+            return state - action.payload;
+            default:
+            return state;
+        }
     };
 ```
+A second reducer to take care of the isLoggedIn state will look like...
+```javascript
+    const isLoggedInReducer = (state = false, action) => {
+        switch (action.type) {
+            case 'LOG_IN':
+            return !state;
+            case 'LOG_OUT':
+            return !state;
+            default:
+            return state;
+        }
+    };
+```
+    💡Note that each of these reducers is managing its own part of the global state. The `state` parameter is different for every reducer, and corresponds to the part of the state it manages.
+
+Now we can use `combineReducers()` to call our reducers with the slices of state selected according to their keys, and combines their results into a single object again.
+```javascript
+    const allReducers = combineReducers({
+        counter: counterReducer,
+        isLoggedIn: isLoggedInReducer,
+    });
+```
+
+
+## Store
