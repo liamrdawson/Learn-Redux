@@ -10,7 +10,21 @@ Before we start, lets look at how we want our initial state to look. We want to 
     isLoggedIn: false
 }
 ```
+To provide some context for the code in this readme, here's to folder structure for our Redux app.
 
+```
+APP -- src ___ actions __ index.js
+          |
+          |__ reducers __ counter.js
+          |           |
+          |           |__ isLogged.js
+          |           |
+          |           |__ index.js
+          |
+          |__ App.js
+          |
+          |__ idnex.js
+```
 
 ## Action
 
